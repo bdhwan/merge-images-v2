@@ -6,6 +6,7 @@ const defaultOptions = {
 	quality: 0.92,
 	width: undefined,
 	height: undefined,
+	rotate: undefined,
 	Canvas: undefined
 };
 
