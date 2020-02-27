@@ -86,7 +86,8 @@ const mergeImages = (sources = [], options = {}) => new Promise(resolve => {
 					context.translate(canvas.width / 2, canvas.height / 2);
 					// rotate the canvas to the specified degrees
 					context.rotate(image.rotate * Math.PI / 180);
-					context.translate(0, 0);
+					context.translate(-canvas.width / 2, -canvas.height / 2);
+					
 				}
 				return ctx.drawImage(image.img, image.x || 0, image.y || 0);
 			});
