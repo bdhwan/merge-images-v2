@@ -37,33 +37,33 @@ const mergeImages = (sources = [], options = {}) => new Promise(resolve => {
 			source = { src: source };
 		}
 
-    if (source.width && source.height) {
-      const img = new Image(source.width, source.height);
+		if (source.width && source.height) {
+			const img = new Image(source.width, source.height);
 
-      img.onerror = () => reject(new Error('Couldn\'t load image'));
-      img.onload = () => {
-        const { width, height } = source;
-        const canvas = createCanvas(options);
-        const ctx = canvas.getContext('2d');
+			img.onerror = () => reject(new Error('Couldn\'t load image'));
+			img.onload = () => {
+				const { width, height } = source;
+				const canvas = createCanvas(options);
+				const ctx = canvas.getContext('2d');
 
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
+				canvas.width = width;
+				canvas.height = height;
+				ctx.drawImage(img, 0, 0, width, height);
 
-        // Adjust source image width and height
-        const resizeImg = new Image();
-        resizeImg.onerror = () => reject(new Error('Couldn\'t load image'));
-        resizeImg.onload = () => resolve(Object.assign({}, source, { img: resizeImg }));
-        resizeImg.src = canvas.toDataURL();
-      };
-      img.src = source.src;
-    } else {
-      // Resolve source and img when loaded
-      const img = new Image();
-      img.onerror = () => reject(new Error('Couldn\'t load image'));
-      img.onload = () => resolve(Object.assign({}, source, { img }));
-      img.src = source.src;
-    }
+				// Adjust source image width and height
+				const resizeImg = new Image();
+				resizeImg.onerror = () => reject(new Error('Couldn\'t load image'));
+				resizeImg.onload = () => resolve(Object.assign({}, source, { img: resizeImg }));
+				resizeImg.src = canvas.toDataURL();
+			};
+			img.src = source.src;
+		} else {
+			// Resolve source and img when loaded
+			const img = new Image();
+			img.onerror = () => reject(new Error('Couldn\'t load image'));
+			img.onload = () => resolve(Object.assign({}, source, { img }));
+			img.src = source.src;
+		}
 	}));
 
 	// Get canvas context
@@ -80,6 +80,13 @@ const mergeImages = (sources = [], options = {}) => new Promise(resolve => {
 			// Draw images to canvas
 			images.forEach(image => {
 				ctx.globalAlpha = image.opacity ? image.opacity : 1;
+				if (image.rotate) {
+					// move to the center of the canvas
+					context.translate(canvas.width / 2, canvas.height / 2);
+					// rotate the canvas to the specified degrees
+					context.rotate(image.rotate * Math.PI / 180);
+					context.translate(0, 0);
+				}
 				return ctx.drawImage(image.img, image.x || 0, image.y || 0);
 			});
 
