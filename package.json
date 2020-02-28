@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcgodard/merge-images-v2.git"
+    "url": "git+https://github.com/bdhwan/merge-images-v2.git"
   },
   "keywords": [
     "compose",
@@ -31,9 +31,9 @@
   "author": "Originally: Luke Childs <lukechilds123@gmail.com> (http://lukechilds.co.uk), Currently: Marc Godard <godardm@gmail.com> (https://marcgodard.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/marcgodard/merge-images-v2/issues"
+    "url": "https://github.com/bdhwan/merge-images-v2/issues"
   },
-  "homepage": "https://github.com/marcgodard/merge-images-v2",
+  "homepage": "https://github.com/bdhwan/merge-images-v2",
   "dependencies": {},
   "devDependencies": {
     "ava": "^1.4.1",
